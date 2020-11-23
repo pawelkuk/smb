@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_product"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_variety"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_quantity"
+        android:layout_width="101dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+</LinearLayout>
