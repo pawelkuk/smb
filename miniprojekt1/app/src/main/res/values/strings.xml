@@ -6,4 +6,12 @@
     <string name="variant">Variant</string>
     <string name="product">Product</string>
     <string name="name">Name</string>
+    <string name="choose_color">Choose color</string>
+    <string name="quantity">Quantity</string>
+    <string-array name="spinner_values">
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>Yellow</item>
+    </string-array>
 </resources>
