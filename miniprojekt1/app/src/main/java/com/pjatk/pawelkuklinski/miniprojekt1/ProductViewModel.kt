@@ -5,16 +5,16 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 
 class ProductViewModel(application: Application): AndroidViewModel(application) {
-    private val repo: ProductRepo
+    private val repo: ProductRepo = ProductRepo(ProductDB.getDatabase(application)!!.getProductDao())
     val allProducts: LiveData<List<Product>>
     init {
-        repo = ProductRepo(ProductDB.getDatabase(application)!!.getProductDao())
-        allProducts = repo.getProducts()
+        allProducts = getProducts()
     }
-    fun getProducts() = repo.getProducts()
+    private fun getProducts() = repo.getProducts()
     fun add(product: Product) = repo.add(product)
     fun edit(product: Product) = repo.edit(product)
     fun remove(product: Product) = repo.remove(product)
     fun removeAll() = repo.removeAll()
+    fun getProductbyId(id: Long) = repo.getProductById(id)
 
 }

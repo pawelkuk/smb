@@ -6,5 +6,6 @@ class ProductRepo(val productDao: ProductDao) {
     fun edit(product: Product) = productDao.edit(product)
     fun remove(product: Product) = productDao.remove(product)
     fun removeAll() = productDao.deleteAll()
+    fun getProductById(id: Long) = productDao.getProductById(id)
 
 }

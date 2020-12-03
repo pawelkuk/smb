@@ -5,4 +5,5 @@
     <string name="add">Add</string>
     <string name="variant">Variant</string>
     <string name="product">Product</string>
+    <string name="name">Name</string>
 </resources>

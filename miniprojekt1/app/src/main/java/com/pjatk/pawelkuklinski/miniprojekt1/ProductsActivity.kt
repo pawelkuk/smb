@@ -2,12 +2,11 @@ package com.pjatk.pawelkuklinski.miniprojekt1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.os.IResultReceiver
-import android.view.LayoutInflater
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityProductsBinding
+import kotlinx.android.synthetic.main.list_element.view.*
 
 class ProductsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +14,7 @@ class ProductsActivity : AppCompatActivity() {
         val binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val viewModel = ProductViewModel(application)
-        val adapter = ProductAdapter(viewModel)
+        val adapter = ProductAdapter(viewModel, this)
         viewModel.allProducts.observe(this, Observer {
             it.let {
                 adapter.setListProduct(it)
@@ -27,12 +26,13 @@ class ProductsActivity : AppCompatActivity() {
         binding.button.setOnClickListener{
             viewModel.add(
                 Product(
-                    product = binding.etProduct.text.toString(),
-                    variety = binding.etVariant.text.toString(),
-                    quantity = binding.etQuantity.text.toString().toLong()
+                    name = binding.etName.text.toString(),
+                    price = binding.etPrice.text.toString(),
+                    quantity = binding.etQuantity.text.toString().toLong(),
+                    isBought = false
                 ))
         }
-        binding.button.setOnLongClickListener{
+        binding.button.setOnLongClickListener {
             viewModel.removeAll()
             true
         }

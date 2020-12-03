@@ -7,28 +7,28 @@
     tools:context=".ProductsActivity">
 
     <EditText
-        android:id="@+id/etProduct"
+        android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="Product"
+        android:hint="Name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvProductList" />
 
     <EditText
-        android:id="@+id/etVariant"
+        android:id="@+id/etPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="29dp"
         android:ems="10"
-        android:hint="Variant"
-        android:inputType="textPersonName"
+        android:hint="Price"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProduct" />
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
         android:id="@+id/etQuantity"
@@ -40,7 +40,7 @@
         android:hint="Quantity"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etVariant" />
+        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
 
     <Button
         android:id="@+id/button"

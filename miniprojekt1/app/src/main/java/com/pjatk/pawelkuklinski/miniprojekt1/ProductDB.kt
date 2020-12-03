@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Product::class], version = 1)
+@Database(entities = [Product::class], version = 2)
 abstract class ProductDB: RoomDatabase(){
     abstract fun getProductDao(): ProductDao
 
@@ -20,7 +20,7 @@ abstract class ProductDB: RoomDatabase(){
                 context,
                 ProductDB::class.java,
                 "productDB"
-            ).allowMainThreadQueries().build()
+            ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
             return instance
         }
     }
