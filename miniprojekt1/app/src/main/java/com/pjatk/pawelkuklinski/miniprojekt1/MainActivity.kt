@@ -18,10 +18,6 @@ class MainActivity : AppCompatActivity() {
         sp = getPreferences(Context.MODE_PRIVATE)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.button1.setOnClickListener{
-            binding.textView1.text = binding.editText1.text
-            Toast.makeText(this, binding.editText1.text, Toast.LENGTH_SHORT).show()
-        }
 
         binding.btProducts.setOnClickListener{
             val productIntent = Intent(this, ProductsActivity::class.java)
@@ -32,12 +28,10 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         val editor = sp.edit()
-        editor.putString("tv_text", binding.editText1.text.toString())
         editor.apply()
     }
     override fun onStart(){
         super.onStart()
-        binding.textView1.text = sp.getString("tv_text", "was nothing written")
 
     }
 

@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ListElementBinding
-import com.pjatk.pawelkuklinski.miniprojekt1.databinding.PopupBinding
 
 class ProductAdapter(val viewModel: ProductViewModel, private val context: ProductsActivity) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
@@ -37,6 +36,13 @@ class ProductAdapter(val viewModel: ProductViewModel, private val context: Produ
             context.startActivity(editProductIntent)
 
         }
+
+        holder.binding.root.setOnLongClickListener {
+            viewModel.remove(productList[position])
+            notifyDataSetChanged()
+            true
+        }
+
         holder.binding.cbIsBought.setOnClickListener{
             productList[position].isBought = holder.binding.cbIsBought.isChecked
             viewModel.edit(productList[position])
