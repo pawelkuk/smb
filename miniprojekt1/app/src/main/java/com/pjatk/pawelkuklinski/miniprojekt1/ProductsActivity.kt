@@ -1,5 +1,7 @@
 package com.pjatk.pawelkuklinski.miniprojekt1
 
+import android.content.Context
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -13,6 +15,12 @@ class ProductsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
+        if (sp.getBoolean("isIrritationMode", false)) {
+            binding.root.setBackgroundColor(Color.CYAN)
+            binding.button.setBackgroundColor(Color.YELLOW)
+
+        }
         val viewModel = ProductViewModel(application)
         val adapter = ProductAdapter(viewModel, this)
         viewModel.allProducts.observe(this, Observer {
@@ -20,6 +28,10 @@ class ProductsActivity : AppCompatActivity() {
                 adapter.setListProduct(it)
             }
         })
+        val btColor = sp.getString("color", null)
+        if (btColor != null && !sp.getBoolean("isIrritationMode", false)){
+            binding.button.setBackgroundColor(COLOR_MAPPER[btColor]!!)
+        }
         binding.rvProductList.layoutManager = LinearLayoutManager(this)
         binding.rvProductList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         binding.rvProductList.adapter = adapter

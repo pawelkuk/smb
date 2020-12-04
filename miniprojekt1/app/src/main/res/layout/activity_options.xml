@@ -37,4 +37,14 @@
         android:text="Save preferences"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/swIsIrritationMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="98dp"
+        android:text="Irritation Mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spChooseColor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

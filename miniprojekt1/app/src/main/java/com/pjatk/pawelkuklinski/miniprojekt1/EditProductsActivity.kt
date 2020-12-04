@@ -1,6 +1,8 @@
 package com.pjatk.pawelkuklinski.miniprojekt1
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +14,17 @@ class EditProductsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityEditProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
+        if (sp.getBoolean("isIrritationMode", false)) {
+            binding.root.setBackgroundColor(Color.CYAN)
+            binding.btCancel.setBackgroundColor(Color.YELLOW)
+            binding.btSave.setBackgroundColor(Color.YELLOW)
+        }
+        val btColor = sp.getString("color", null)
+        if (btColor != null && !sp.getBoolean("isIrritationMode", false)){
+            binding.btCancel.setBackgroundColor(COLOR_MAPPER[btColor]!!)
+            binding.btSave.setBackgroundColor(COLOR_MAPPER[btColor]!!)
+        }
         val id = intent.getLongExtra("productId", -1)
         if (id == (-1).toLong()) {
             Toast.makeText(this, "id not found", Toast.LENGTH_SHORT).show()
