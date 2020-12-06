@@ -38,13 +38,17 @@ class ProductsActivity : AppCompatActivity() {
         binding.rvProductList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         binding.rvProductList.adapter = adapter
         binding.button.setOnClickListener{
-            viewModel.add(
-                Product(
+            val product = Product(
                     name = binding.etName.text.toString(),
                     price = binding.etPrice.text.toString(),
                     quantity = binding.etQuantity.text.toString().toLong(),
                     isBought = false
-                ))
+            )
+            viewModel.add(product)
+            val broadcast = Intent("com.pjatk.pawelkuklinski.miniprojekt1.ADD_PRODUCT")
+            broadcast.putExtra("name", binding.etName.text.toString())
+            broadcast.putExtra("id", product.id)
+            sendBroadcast(broadcast)
         }
         binding.button.setOnLongClickListener {
             viewModel.removeAll()
