@@ -20,6 +20,6 @@ interface ProductDao {
     @Query("delete from product")
     fun deleteAll()
 
-    @Query("select * from product where id= :id")
+    @Query("select * from product where id=:id")
     fun getProductById(id: Long): Product
 }

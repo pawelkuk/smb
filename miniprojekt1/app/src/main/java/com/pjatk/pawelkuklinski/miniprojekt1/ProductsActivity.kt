@@ -1,6 +1,7 @@
 package com.pjatk.pawelkuklinski.miniprojekt1
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +20,7 @@ class ProductsActivity : AppCompatActivity() {
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.button.setBackgroundColor(Color.YELLOW)
-
+            binding.btMainMenu.setBackgroundColor(Color.YELLOW)
         }
         val viewModel = ProductViewModel(application)
         val adapter = ProductAdapter(viewModel, this)
@@ -31,6 +32,7 @@ class ProductsActivity : AppCompatActivity() {
         val btColor = sp.getString("color", null)
         if (btColor != null && !sp.getBoolean("isIrritationMode", false)){
             binding.button.setBackgroundColor(COLOR_MAPPER[btColor]!!)
+            binding.btMainMenu.setBackgroundColor(COLOR_MAPPER[btColor]!!)
         }
         binding.rvProductList.layoutManager = LinearLayoutManager(this)
         binding.rvProductList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -48,6 +50,9 @@ class ProductsActivity : AppCompatActivity() {
             viewModel.removeAll()
             true
         }
-
+        binding.btMainMenu.setOnClickListener {
+            val mainMenuIntent = Intent(this, MainActivity::class.java)
+            startActivity(mainMenuIntent)
+        }
     }
 }
