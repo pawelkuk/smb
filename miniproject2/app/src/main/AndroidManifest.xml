@@ -14,7 +14,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="@string/action"/>
+                <action android:name="com.pjatk.pawelkuklinski.miniprojekt1.EditProductsActivity"/>
             </intent-filter>
         </receiver>
     </application>

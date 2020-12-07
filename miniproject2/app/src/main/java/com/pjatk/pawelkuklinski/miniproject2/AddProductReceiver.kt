@@ -28,7 +28,7 @@ class AddProductReceiver : BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, "channelProduct")
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentTitle("Product added:")
-            .setContentText(intent.getStringExtra("name"))
+            .setContentText(intent.getStringExtra("name") + id.toString())
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
