@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">miniproject2</string>
+    <string name="action">com.pjatk.pawelkuklinski.miniprojekt1.EditProductActivity</string>
+</resources>
