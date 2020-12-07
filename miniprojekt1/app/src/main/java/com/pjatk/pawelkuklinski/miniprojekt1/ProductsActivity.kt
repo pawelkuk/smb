@@ -1,5 +1,6 @@
 package com.pjatk.pawelkuklinski.miniprojekt1
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -46,6 +47,10 @@ class ProductsActivity : AppCompatActivity() {
             )
             viewModel.add(product)
             val broadcast = Intent("com.pjatk.pawelkuklinski.miniprojekt1.ADD_PRODUCT")
+            broadcast.component = ComponentName(
+                "com.pjatk.pawelkuklinski.miniproject2",
+                "com.pjatk.pawelkuklinski.miniproject2.AddProductReceiver"
+            )
             broadcast.putExtra("name", binding.etName.text.toString())
             broadcast.putExtra("id", product.id)
             sendBroadcast(broadcast)
