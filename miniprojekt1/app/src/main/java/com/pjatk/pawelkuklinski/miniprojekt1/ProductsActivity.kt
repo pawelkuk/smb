@@ -52,7 +52,7 @@ class ProductsActivity : AppCompatActivity() {
                 "com.pjatk.pawelkuklinski.miniproject2.AddProductReceiver"
             )
             broadcast.putExtra("name", binding.etName.text.toString())
-            broadcast.putExtra("id", viewModel.allProducts.value?.last()?.id)
+            broadcast.putExtra("id", viewModel.allProducts.value?.last()?.id?.plus(1))
             sendBroadcast(broadcast)
         }
         binding.button.setOnLongClickListener {

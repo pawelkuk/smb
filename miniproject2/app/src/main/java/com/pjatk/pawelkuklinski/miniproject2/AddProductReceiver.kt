@@ -18,7 +18,7 @@ class AddProductReceiver : BroadcastReceiver() {
         val serviceIntent = Intent(context, EditProductService::class.java)
         val id = intent.getLongExtra("id", -1)
         serviceIntent.putExtra("id", id)
-        serviceIntent.putExtra("name" , intent.getStringExtra("name") + id.toString())
+        serviceIntent.putExtra("name" , intent.getStringExtra("name"))
         context.startForegroundService(serviceIntent)
     }
 

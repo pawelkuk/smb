@@ -2,6 +2,7 @@ package com.pjatk.pawelkuklinski.miniproject2
 
 import android.app.PendingIntent
 import android.app.Service
+import android.content.ComponentName
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
@@ -14,11 +15,15 @@ class EditProductService() : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val ret = super.onStartCommand(intent, flags, startId)
-        val editProductIntent = Intent("com.pjatk.pawelkuklinski.miniprojekt1.EditProductsActivity")
-        editProductIntent.setPackage("com.pjatk.pawelkuklinski.miniprojekt1")
-
-
+        Log.i("[TAG]", "message")
+        val editProductIntent = Intent("com.pjatk.pawelkuklinski.miniproject2.EDIT_PRODUCT")
+        editProductIntent.component = ComponentName(
+            "com.pjatk.pawelkuklinski.miniprojekt1",
+            "com.pjatk.pawelkuklinski.miniprojekt1.EditProductsActivity"
+        )
         val id = intent?.getLongExtra("id", -1)
+        val name = intent?.getStringExtra("name")
+
         editProductIntent.putExtra("productId", id)
         val pendingIntent = PendingIntent.getActivity(
             this,
@@ -29,13 +34,12 @@ class EditProductService() : Service() {
         val notification = NotificationCompat.Builder(this, "channelProduct")
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentTitle("Product added:")
-            .setContentText(intent?.getStringExtra("name"))
+            .setContentText(name)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()
-
-        startForeground(code, notification)
-        NotificationManagerCompat.from(this).notify(code, notification)
+//        NotificationManagerCompat.from(this).notify(code++, notification)
+        startForeground(code++, notification)
         return ret
     }
     override fun onBind(intent: Intent): IBinder {
