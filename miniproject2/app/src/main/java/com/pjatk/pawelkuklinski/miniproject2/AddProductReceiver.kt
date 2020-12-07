@@ -6,33 +6,20 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
 class AddProductReceiver : BroadcastReceiver() {
-    private var code = 0
 
     override fun onReceive(context: Context, intent: Intent) {
         createChannel(context)
-        val editProductIntent = Intent( context.getString(R.string.action))
+        val serviceIntent = Intent(context, EditProductService::class.java)
         val id = intent.getLongExtra("id", -1)
-        editProductIntent.putExtra("productId", id)
-
-        val pendingIntent = PendingIntent.getActivity(
-            context,
-            code++,
-            editProductIntent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
-
-        val notification = NotificationCompat.Builder(context, "channelProduct")
-            .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentTitle("Product added:")
-            .setContentText(intent.getStringExtra("name") + id.toString())
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-            .build()
-        NotificationManagerCompat.from(context).notify(code, notification)
+        serviceIntent.putExtra("id", id)
+        serviceIntent.putExtra("name" , intent.getStringExtra("name") + id.toString())
+        context.startForegroundService(serviceIntent)
     }
 
     private fun createChannel(context: Context) {
