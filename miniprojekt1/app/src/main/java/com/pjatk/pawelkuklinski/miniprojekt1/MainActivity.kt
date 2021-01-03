@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
+
+        binding.etUser.text = intent.getStringExtra("user")
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.btOptions.setBackgroundColor(Color.YELLOW)
