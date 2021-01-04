@@ -49,8 +49,6 @@ class ProductAdapter(val viewModel: ProductViewModel, private val context: Produ
             notifyDataSetChanged()
         }
 
-
-
     }
 
     override fun getItemCount(): Int {
