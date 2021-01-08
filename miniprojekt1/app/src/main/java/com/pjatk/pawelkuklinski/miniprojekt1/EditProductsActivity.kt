@@ -46,7 +46,7 @@ class EditProductsActivity : AppCompatActivity() {
         binding.btSave.setOnClickListener{
             viewModel.edit(
                 Product(
-                    id = id!!,
+                    id = id,
                     name = binding.etEditName.text.toString(),
                     price = binding.etEditPrice.text.toString(),
                     quantity = binding.etEditQuantity.text.toString().toLong(),

@@ -44,9 +44,4 @@ class MainActivity : AppCompatActivity() {
         val editor = sp.edit()
         editor.apply()
     }
-    override fun onStart(){
-        super.onStart()
-
-    }
-
 }

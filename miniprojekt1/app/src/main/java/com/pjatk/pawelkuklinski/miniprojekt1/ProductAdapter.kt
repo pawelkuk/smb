@@ -4,16 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.PopupWindow
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ListElementBinding
 
 class ProductAdapter(val viewModel: ProductViewModel, private val context: ProductsActivity) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    var productList = emptyList<Product>()
+    private var productList = emptyList<Product>()
     lateinit var inflater: LayoutInflater
     lateinit var parent: ViewGroup
     class ProductViewHolder(val binding: ListElementBinding) : RecyclerView.ViewHolder(binding.root)

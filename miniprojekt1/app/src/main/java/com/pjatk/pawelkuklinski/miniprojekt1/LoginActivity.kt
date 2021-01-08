@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityLoginBinding
-import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

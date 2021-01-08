@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityProductsBinding
-import kotlinx.android.synthetic.main.list_element.view.*
 
 class ProductsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
