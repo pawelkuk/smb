@@ -3,6 +3,8 @@ package com.pjatk.pawelkuklinski.miniproject2
 import android.app.PendingIntent
 import android.app.Service
 import android.content.ComponentName
+import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
@@ -21,7 +23,9 @@ class EditProductService() : Service() {
             "com.pjatk.pawelkuklinski.miniprojekt1",
             "com.pjatk.pawelkuklinski.miniprojekt1.EditProductsActivity"
         )
-        val id = intent?.getLongExtra("id", -1)
+        val id = intent?.getStringExtra("id")
+        Log.i(TAG, "This is the product id from service $id")
+
         val name = intent?.getStringExtra("name")
 
         editProductIntent.putExtra("productId", id)

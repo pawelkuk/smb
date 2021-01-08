@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityProductsBinding
 import kotlinx.android.synthetic.main.list_element.view.*
 
@@ -23,12 +24,22 @@ class ProductsActivity : AppCompatActivity() {
             binding.button.setBackgroundColor(Color.YELLOW)
             binding.btMainMenu.setBackgroundColor(Color.YELLOW)
         }
-        val viewModel = ProductViewModel(application)
+        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance())
         val adapter = ProductAdapter(viewModel, this)
-        viewModel.allProducts.observe(this, Observer {
+        viewModel.products.observe(this, Observer {
             it.let {
                 adapter.setListProduct(it)
             }
+        })
+        viewModel.newProduct.observe(this, Observer {
+            val broadcast = Intent("com.pjatk.pawelkuklinski.miniprojekt1.ADD_PRODUCT")
+            broadcast.component = ComponentName(
+                "com.pjatk.pawelkuklinski.miniproject2",
+                "com.pjatk.pawelkuklinski.miniproject2.AddProductReceiver"
+            )
+            broadcast.putExtra("name", viewModel.newProduct.value?.name)
+            broadcast.putExtra("id", viewModel.newProduct.value?.id)
+            sendBroadcast(broadcast)
         })
         val btColor = sp.getString("color", null)
         if (btColor != null && !sp.getBoolean("isIrritationMode", false)){
@@ -43,17 +54,11 @@ class ProductsActivity : AppCompatActivity() {
                     name = binding.etName.text.toString(),
                     price = binding.etPrice.text.toString(),
                     quantity = binding.etQuantity.text.toString().toLong(),
-                    isBought = false
+                    isBought = false,
+                    id = null
             )
             viewModel.add(product)
-            val broadcast = Intent("com.pjatk.pawelkuklinski.miniprojekt1.ADD_PRODUCT")
-            broadcast.component = ComponentName(
-                "com.pjatk.pawelkuklinski.miniproject2",
-                "com.pjatk.pawelkuklinski.miniproject2.AddProductReceiver"
-            )
-            broadcast.putExtra("name", binding.etName.text.toString())
-            broadcast.putExtra("id", viewModel.allProducts.value?.last()?.id?.plus(1))
-            sendBroadcast(broadcast)
+
         }
         binding.button.setOnLongClickListener {
             viewModel.removeAll()

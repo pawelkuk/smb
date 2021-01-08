@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityEditProductsBinding
 
 class EditProductsActivity : AppCompatActivity() {
@@ -25,22 +28,25 @@ class EditProductsActivity : AppCompatActivity() {
             binding.btCancel.setBackgroundColor(COLOR_MAPPER[btColor]!!)
             binding.btSave.setBackgroundColor(COLOR_MAPPER[btColor]!!)
         }
-        val id = intent.getLongExtra("productId", -1)
-        if (id == (-1).toLong()) {
+        val id = intent.getStringExtra("productId")
+        if (id == null) {
             Toast.makeText(this, "id not found", Toast.LENGTH_SHORT).show()
         }
-        val viewModel = ProductViewModel(application)
-        val product = viewModel.getProductbyId(id)
+        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance())
+        viewModel.getProductById(id!!)
+        viewModel.editProduct.observe(this, Observer {
+            binding.etEditName.text = Editable.Factory.getInstance().newEditable(it.name)
+            binding.etEditPrice.text = Editable.Factory.getInstance().newEditable(it.price)
+            binding.etEditQuantity.text =
+                Editable.Factory.getInstance().newEditable(it.quantity.toString())
+            binding.cbEditIsBought.isChecked = it.isBought
+        })
 
-        binding.etEditName.text = Editable.Factory.getInstance().newEditable(product.name)
-        binding.etEditPrice.text = Editable.Factory.getInstance().newEditable(product.price)
-        binding.etEditQuantity.text = Editable.Factory.getInstance().newEditable(product.quantity.toString())
-        binding.cbEditIsBought.isChecked = product.isBought
 
         binding.btSave.setOnClickListener{
             viewModel.edit(
                 Product(
-                    id = (id).toLong(),
+                    id = id!!,
                     name = binding.etEditName.text.toString(),
                     price = binding.etEditPrice.text.toString(),
                     quantity = binding.etEditQuantity.text.toString().toLong(),

@@ -1,7 +1,17 @@
 package com.pjatk.pawelkuklinski.miniprojekt1
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "Product")
-data class Product(@PrimaryKey(autoGenerate = true) var id:Long=0, var name: String, var price:String, var quantity: Long, var isBought: Boolean)
+data class Product(var id:String?, var name: String, var price:String, var quantity: Long, var isBought: Boolean){
+    override fun toString(): String {
+        return "Product($id, $name, $price, $quantity, $isBought)"
+    }
+
+    fun toMap(): MutableMap<String, Any> {
+        val product = hashMapOf<String, Any>()
+        product["name"] = name
+        product["price"] = price
+        product["quantity"] = quantity
+        product["isBought"] = isBought
+        return product
+    }
+}
