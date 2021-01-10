@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
                             "user",
                             auth.currentUser?.email
                         )
+                        it.putExtra("userUid",  auth.currentUser?.uid)
                     })
                 } else {
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()

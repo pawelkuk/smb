@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ListElementBinding
 
-class ProductAdapter(val viewModel: ProductViewModel, private val context: ProductsActivity) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    val viewModel: ProductViewModel,
+    private val context: ProductsActivity,
+    private val uid: String?
+    ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var productList = emptyList<Product>()
     lateinit var inflater: LayoutInflater
@@ -29,6 +33,7 @@ class ProductAdapter(val viewModel: ProductViewModel, private val context: Produ
         holder.binding.root.setOnClickListener {
             val editProductIntent = Intent(context, EditProductsActivity::class.java)
             editProductIntent.putExtra("productId", productList[position].id)
+            editProductIntent.putExtra("userUid", uid)
             context.startActivity(editProductIntent)
 
         }

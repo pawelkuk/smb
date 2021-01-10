@@ -32,7 +32,8 @@ class EditProductsActivity : AppCompatActivity() {
         if (id == null) {
             Toast.makeText(this, "id not found", Toast.LENGTH_SHORT).show()
         }
-        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance())
+        val userUid = intent.getStringExtra("userUid")
+        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance(), userUid )
         viewModel.getProductById(id!!)
         viewModel.editProduct.observe(this, Observer {
             binding.etEditName.text = Editable.Factory.getInstance().newEditable(it.name)
@@ -53,6 +54,7 @@ class EditProductsActivity : AppCompatActivity() {
                     isBought = binding.cbEditIsBought.isChecked
             ))
             val productListIntent = Intent(this, ProductsActivity::class.java)
+            productListIntent.putExtra("userUid", userUid)
             startActivity(productListIntent)
         }
 

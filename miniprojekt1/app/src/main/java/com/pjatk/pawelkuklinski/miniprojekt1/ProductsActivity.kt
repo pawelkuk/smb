@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,13 +19,15 @@ class ProductsActivity : AppCompatActivity() {
         val binding = ActivityProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
+        val uid = intent.getStringExtra("userUid")
+        Toast.makeText(this, uid, Toast.LENGTH_SHORT).show()
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.button.setBackgroundColor(Color.YELLOW)
             binding.btMainMenu.setBackgroundColor(Color.YELLOW)
         }
-        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance())
-        val adapter = ProductAdapter(viewModel, this)
+        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance(), uid)
+        val adapter = ProductAdapter(viewModel, this, uid)
         viewModel.products.observe(this, Observer {
             it.let {
                 adapter.setListProduct(it)
@@ -65,6 +68,7 @@ class ProductsActivity : AppCompatActivity() {
         }
         binding.btMainMenu.setOnClickListener {
             val mainMenuIntent = Intent(this, MainActivity::class.java)
+            mainMenuIntent.putExtra("userUid", uid)
             startActivity(mainMenuIntent)
         }
     }

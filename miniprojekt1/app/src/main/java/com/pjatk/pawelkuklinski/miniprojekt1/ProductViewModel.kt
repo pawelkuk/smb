@@ -9,15 +9,15 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
 
-class ProductViewModel(application: Application, private val db: FirebaseFirestore): AndroidViewModel(
-    application
-) {
+class ProductViewModel(
+    application: Application, private val db: FirebaseFirestore, private val uid:String?
+    ): AndroidViewModel(application) {
     var products: MutableLiveData<ArrayList<Product>> = MutableLiveData()
     var editProduct: MutableLiveData<Product> = MutableLiveData()
     var newProduct: MutableLiveData<Product> = MutableLiveData()
 
     init {
-        db.collection("product").addSnapshotListener{ snapshot, e ->
+        db.collection("product$uid").addSnapshotListener{ snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed", e)
                 return@addSnapshotListener
@@ -41,7 +41,7 @@ class ProductViewModel(application: Application, private val db: FirebaseFiresto
     }
 
     fun add(product: Product) {
-        db.collection("product").add(product.toMap()).addOnSuccessListener {
+        db.collection("product$uid").add(product.toMap()).addOnSuccessListener {
             Log.i(TAG, "Added $product")
             product.id = it.id
             newProduct.value = product
@@ -52,7 +52,7 @@ class ProductViewModel(application: Application, private val db: FirebaseFiresto
 
     }
     fun edit(product: Product){
-        val productIdRef: DocumentReference = db.collection("product").document(product.id!!)
+        val productIdRef: DocumentReference = db.collection("product$uid").document(product.id!!)
         productIdRef.update(product.toMap()).addOnCompleteListener{
             if (it.isSuccessful){
                 Log.i(
@@ -66,7 +66,7 @@ class ProductViewModel(application: Application, private val db: FirebaseFiresto
     }
 
     fun remove(product: Product){
-        val productIdRef: DocumentReference = db.collection("product").document(product.id!!)
+        val productIdRef: DocumentReference = db.collection("product$uid").document(product.id!!)
         productIdRef.delete().addOnCompleteListener {
             if (it.isSuccessful) {
                 Log.i(
@@ -80,7 +80,7 @@ class ProductViewModel(application: Application, private val db: FirebaseFiresto
 
 
     fun removeAll() {
-        db.collection("product").get().addOnCompleteListener{
+        db.collection("product$uid").get().addOnCompleteListener{
             if (it.isSuccessful){
                 val batch = db.batch()
                 it.result!!.forEach { ref -> batch.delete(ref.reference) }
@@ -90,7 +90,7 @@ class ProductViewModel(application: Application, private val db: FirebaseFiresto
     }
 
     fun getProductById(id: String) {
-        db.collection("product").document(id).get().addOnCompleteListener{
+        db.collection("product$uid").document(id).get().addOnCompleteListener{
             if (it.isSuccessful){
                 val data = it.result!!
                 val product = Product(id=data.id,

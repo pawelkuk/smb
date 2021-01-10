@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
 
         binding.etUser.text = intent.getStringExtra("user")
+        val id = intent.getStringExtra("userUid")
+        Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.btOptions.setBackgroundColor(Color.YELLOW)
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btProducts.setOnClickListener{
             val productIntent = Intent(this, ProductsActivity::class.java)
+            productIntent.putExtra("userUid", id)
             startActivity(productIntent)
         }
         binding.btOptions.setOnClickListener{
