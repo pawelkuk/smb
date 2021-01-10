@@ -20,7 +20,7 @@ class ProductsActivity : AppCompatActivity() {
         setContentView(binding.root)
         val sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
         val uid = intent.getStringExtra("userUid")
-        Toast.makeText(this, uid, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, uid, Toast.LENGTH_SHORT).show()
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.button.setBackgroundColor(Color.YELLOW)

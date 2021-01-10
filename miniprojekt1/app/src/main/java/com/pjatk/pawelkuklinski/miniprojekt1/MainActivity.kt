@@ -7,6 +7,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.etUser.text = intent.getStringExtra("user")
         val id = intent.getStringExtra("userUid")
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.btOptions.setBackgroundColor(Color.YELLOW)
@@ -40,6 +41,11 @@ class MainActivity : AppCompatActivity() {
         if (btColor != null && !sp.getBoolean("isIrritationMode", false)) {
             binding.btOptions.setBackgroundColor(COLOR_MAPPER[btColor]!!)
             binding.btProducts.setBackgroundColor(COLOR_MAPPER[btColor]!!)
+        }
+        binding.btLogout.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
         }
     }
 
