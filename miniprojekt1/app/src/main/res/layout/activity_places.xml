@@ -4,56 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductsActivity">
+    tools:context=".PlacesActivity">
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="61dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvProductList" />
+        app:layout_constraintTop_toBottomOf="@+id/rvPlaceList" />
 
     <EditText
-        android:id="@+id/etPrice"
+        android:id="@+id/etDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="29dp"
         android:ems="10"
-        android:hint="Price"
-        android:inputType="numberDecimal"
+        android:hint="Description"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
-        android:id="@+id/etQuantity"
+        android:id="@+id/etRadius"
         android:layout_width="91dp"
         android:layout_height="41dp"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="@string/quantity"
+        android:hint="Radius"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/etDescription" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="74dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="20dp"
         android:text="@string/add"
-        app:layout_constraintStart_toEndOf="@+id/btMainMenu"
-        app:layout_constraintTop_toBottomOf="@+id/etQuantity" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRadius" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProductList"
+        android:id="@+id/rvPlaceList"
         android:layout_width="410dp"
         android:layout_height="263dp"
         android:layout_marginTop="84dp"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="165dp"
         android:layout_marginTop="32dp"
-        android:text="@string/product_list"
+        android:text="Places list"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,8 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="159dp"
+        android:layout_marginTop="76dp"
         android:text="Main Menu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
+        app:layout_constraintTop_toBottomOf="@+id/etDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

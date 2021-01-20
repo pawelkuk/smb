@@ -4,19 +4,26 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.location.Address
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityPlacesBinding
 import com.pjatk.pawelkuklinski.miniprojekt1.databinding.ActivityProductsBinding
+import java.io.IOException
 
-class ProductsActivity : AppCompatActivity() {
+class PlacesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityProductsBinding.inflate(layoutInflater)
+        val binding = ActivityPlacesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val sp = getSharedPreferences("filename", Context.MODE_PRIVATE)
         val uid = intent.getStringExtra("userUid")
@@ -26,40 +33,48 @@ class ProductsActivity : AppCompatActivity() {
             binding.button.setBackgroundColor(Color.YELLOW)
             binding.btMainMenu.setBackgroundColor(Color.YELLOW)
         }
-        val viewModel = ProductViewModel(application, FirebaseFirestore.getInstance(), uid)
-        val adapter = ProductAdapter(viewModel, this, uid)
-        viewModel.products.observe(this, Observer {
+        val geoCoder = Geocoder(this)
+
+        val viewModel = PlaceViewModel(application, FirebaseFirestore.getInstance(), uid)
+        val adapter = PlacesAdapter(viewModel, this, uid)
+        viewModel.places.observe(this, Observer {
             it.let {
-                adapter.setListProduct(it)
+                adapter.setListPlace(it)
             }
         })
-        viewModel.newProduct.observe(this, Observer {
-            val broadcast = Intent("com.pjatk.pawelkuklinski.miniprojekt1.ADD_PRODUCT")
-            broadcast.component = ComponentName(
-                "com.pjatk.pawelkuklinski.miniproject2",
-                "com.pjatk.pawelkuklinski.miniproject2.AddProductReceiver"
-            )
-            broadcast.putExtra("name", viewModel.newProduct.value?.name)
-            broadcast.putExtra("id", viewModel.newProduct.value?.id)
-            sendBroadcast(broadcast)
-        })
+
         val btColor = sp.getString("color", null)
         if (btColor != null && !sp.getBoolean("isIrritationMode", false)){
             binding.button.setBackgroundColor(COLOR_MAPPER[btColor]!!)
             binding.btMainMenu.setBackgroundColor(COLOR_MAPPER[btColor]!!)
         }
-        binding.rvProductList.layoutManager = LinearLayoutManager(this)
-        binding.rvProductList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        binding.rvProductList.adapter = adapter
+        binding.rvPlaceList.layoutManager = LinearLayoutManager(this)
+        binding.rvPlaceList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding.rvPlaceList.adapter = adapter
         binding.button.setOnClickListener{
-            val product = Product(
-                    name = binding.etName.text.toString(),
-                    price = binding.etPrice.text.toString(),
-                    quantity = binding.etQuantity.text.toString().toLong(),
-                    isBought = false,
-                    id = null
+            var addressList: List<Address>? = null
+            val location = binding.etName.text.toString()
+            try {
+                addressList = geoCoder.getFromLocationName(location, 1)
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            val address = addressList!![0]
+            Toast.makeText(applicationContext, address.latitude.toString() + " " + address.longitude, Toast.LENGTH_LONG).show()
+
+
+            val place = Place(
+                name = binding.etName.text.toString(),
+                description = binding.etDescription.text.toString(),
+                radius = binding.etRadius.text.toString().toLong(),
+                isFav = false,
+                id = null,
+                latitude = address.latitude,
+                longitude = address.longitude
             )
-            viewModel.add(product)
+            viewModel.add(place)
+
         }
         binding.button.setOnLongClickListener {
             viewModel.removeAll()

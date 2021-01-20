@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvLongitude"
+        android:layout_width="69dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/marginVertical"
+        android:layout_marginStart="@dimen/margin"
+        android:text="TextView" />
+
+    <CheckBox
+        android:id="@+id/cbIsFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:text="is Fav" />
+
+</LinearLayout>

@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.etUser.text = intent.getStringExtra("user")
         val id = intent.getStringExtra("userUid")
-//        Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
         if (sp.getBoolean("isIrritationMode", false)) {
             binding.root.setBackgroundColor(Color.CYAN)
             binding.btOptions.setBackgroundColor(Color.YELLOW)
@@ -33,6 +32,12 @@ class MainActivity : AppCompatActivity() {
             productIntent.putExtra("userUid", id)
             startActivity(productIntent)
         }
+        binding.btPlaces.setOnClickListener{
+            val productIntent = Intent(this, MapsActivity::class.java)
+            productIntent.putExtra("userUid", id)
+            startActivity(productIntent)
+        }
+
         binding.btOptions.setOnClickListener{
             val optionsIntent = Intent(this, OptionsActivity::class.java)
             startActivity(optionsIntent)
