@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
-        android:id="@+id/etRadius"
+        android:id="@+id/etMarkerRadius"
         android:layout_width="91dp"
         android:layout_height="41dp"
         android:layout_marginStart="156dp"
@@ -50,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etRadius" />
+        app:layout_constraintTop_toBottomOf="@+id/etMarkerRadius" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlaceList"

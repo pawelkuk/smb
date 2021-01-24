@@ -67,7 +67,7 @@ class PlacesActivity : AppCompatActivity() {
             val place = Place(
                 name = binding.etName.text.toString(),
                 description = binding.etDescription.text.toString(),
-                radius = binding.etRadius.text.toString().toLong(),
+                radius = binding.etMarkerRadius.text.toString().toLong(),
                 isFav = false,
                 id = null,
                 latitude = address.latitude,

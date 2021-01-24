@@ -24,8 +24,8 @@
         android:id="@+id/etPlace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/enter_place"
         android:inputType="textPersonName"
@@ -36,8 +36,8 @@
         android:id="@+id/btAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginBottom="136dp"
         android:text="@string/add"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintStart_toStartOf="parent" />
@@ -46,10 +46,34 @@
         android:id="@+id/btFavorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="117dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="72dp"
         android:text="Favorite List"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toBottomOf="@+id/btAdd" />
+
+    <EditText
+        android:id="@+id/etDescr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/etPlace" />
+
+    <EditText
+        android:id="@+id/etMarkerRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Radius"
+        android:inputType="number"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/etDescr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

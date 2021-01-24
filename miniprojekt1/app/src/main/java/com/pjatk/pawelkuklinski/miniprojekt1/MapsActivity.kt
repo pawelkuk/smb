@@ -62,21 +62,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.btAdd.setOnClickListener{
             LocationServices.getFusedLocationProviderClient(this).lastLocation
                 .addOnSuccessListener {
-                    var addressList: List<Address>? = null
-                    val location = binding.etPlace.text.toString()
-                    try {
-                        addressList = geoCoder.getFromLocationName(location, 1)
-
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                    val address = addressList!![0]
-                    val latLng = LatLng(address.latitude, address.longitude)
-                    mMap!!.addMarker(MarkerOptions().position(latLng).title(location))
-                    mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-                    Toast.makeText(applicationContext, address.latitude.toString() + " " + address.longitude, Toast.LENGTH_LONG).show()
-
-
+//                    var addressList: List<Address>? = null
+//                    val location = binding.etPlace.text.toString()
+//                    try {
+//                        addressList = geoCoder.getFromLocationName(location, 1)
+//
+//                    } catch (e: IOException) {
+//                        e.printStackTrace()
+//                    }
+//                    val address = addressList!![0]
+//                    val latLng = LatLng(address.latitude, address.longitude)
+//                    mMap!!.addMarker(MarkerOptions().position(latLng).title(location))
+//                    mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+//                    Toast.makeText(applicationContext, address.latitude.toString() + " " + address.longitude, Toast.LENGTH_LONG).show()
+                    val place = Place(
+                            name = binding.etPlace.text.toString(),
+                            description = binding.etDescr.text.toString(),
+                            radius = binding.etMarkerRadius.text.toString().toLong(),
+                            isFav = false,
+                            id = null,
+                            latitude = it.latitude,
+                            longitude = it.longitude
+                    )
+                    viewModel.add(place)
                     Log.i("location", "Location: ${it.latitude}, ${it.longitude}")
                     val latlng = LatLng(it.latitude, it.longitude)
                     val marker = MarkerOptions()
@@ -87,7 +95,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     Log.i("location", "Location: ${binding.etPlace.text.toString()}")
                     val geo = Geofence.Builder()
                         .setRequestId("Geo${id++}")
-                        .setCircularRegion(it.latitude, it.longitude, 100F)
+                        .setCircularRegion(it.latitude, it.longitude, binding.etMarkerRadius.text.toString().toFloat())
                         .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
                         .setExpirationDuration(Geofence.NEVER_EXPIRE)
                         .build()
@@ -96,11 +104,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                         .addGeofence(geo)
                         .build()
+                    val intent = Intent(this, GeoReceiver::class.java)
+                    intent.putExtra("place", binding.etPlace.text.toString())
                     val geoPendingIntent = PendingIntent.getBroadcast(
-                        this,
-                        id,
-                        Intent(this, GeoReceiver::class.java),
-                        PendingIntent.FLAG_UPDATE_CURRENT
+                            this,
+                            id,
+                            intent,
+                            PendingIntent.FLAG_UPDATE_CURRENT
                     )
                     Log.i("mapsActivity", "id ${id}")
                     geoClient.addGeofences(geoRequest, geoPendingIntent).addOnSuccessListener {
@@ -163,7 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         mMap.addMarker(marker)
                         val geo = Geofence.Builder()
                             .setRequestId("Geo${id++}")
-                            .setCircularRegion(it.latitude, it.longitude, 100F)
+                            .setCircularRegion(it.latitude, it.longitude, it.radius.toFloat())
                             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
                             .setExpirationDuration(Geofence.NEVER_EXPIRE)
                             .build()
@@ -172,10 +182,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                             .addGeofence(geo)
                             .build()
+                        val intent = Intent(this, GeoReceiver::class.java)
+                        intent.putExtra("place", it.name)
                         val geoPendingIntent = PendingIntent.getBroadcast(
                             this,
                             id,
-                            Intent(this, GeoReceiver::class.java),
+                            intent,
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
                         Log.i("mapsActivity", "id ${id}")
