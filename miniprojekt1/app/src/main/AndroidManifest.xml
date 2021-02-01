@@ -21,6 +21,7 @@
         <receiver android:name=".MediaAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="@string/action1"/>
             </intent-filter>
 
             <meta-data

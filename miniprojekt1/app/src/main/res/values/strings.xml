@@ -25,6 +25,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_maps">Map</string>
     <string name="enter_place">Enter place</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">Welcome</string>
     <string name="add_widget">Add widget</string>
+    <string name="action1">com.pjatk.pawelkuklinski.miniprojekt1.action1</string>
+    <string name="action2">com.pjatk.pawelkuklinski.miniprojekt1.action2</string>
 </resources>
